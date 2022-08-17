@@ -2,7 +2,10 @@
 
 void print_char(char character, int col, int row, char attribute_byte) {
 
-	//unsigned char *vidmem = (unsigned char*) VIDEO_ADDRESS;
+	char expect;
+
+	int expect2;
+	unsigned char *vidmem = (unsigned char*) VIDEO_ADDRESS;
 
 	if (!attribute_byte) {
 		attribute_byte = WHITE_ON_BLACK;
@@ -18,13 +21,10 @@ void print_char(char character, int col, int row, char attribute_byte) {
 
 	if (character == '\n') {
 		int rows = offset / (2*MAX_COLS);
+		offset = get_screen_offset(79, rows);
 	} else {
-		int of1 = VIDEO_ADDRESS+offset;
-		__asm__("mov (%%eax), %%dx" : : "b" (of1), "d" (character));
-		of1++;
-		__asm__("mov (%%eax), %%dx" : : "a" (of1), "d" (attribute_byte));
-		//vidmem[offset] = character;
-		//vidmem[offset+1] = attribute_byte;
+		vidmem[offset] = character;
+		vidmem[offset+1] = attribute_byte;
 	}
 
 	offset+=2;
