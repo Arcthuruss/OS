@@ -34,6 +34,23 @@ void print_char(char character, int col, int row, char attribute_byte) {
 	set_cursor(offset);
 }
 
+void print_string(char string[]) {
+	int i = 0;
+	while(string[i]) {
+		print_char(string[i], -1, -1, 0);
+		i++;
+	}
+}
+
+void print_line(char string[]) {
+	int i = 0;
+	while(string[i]) {
+		print_char(string[i], -1, -1, 0);
+		i++;
+	}
+	print_char('\n', -1, -1, 0);
+}
+
 int get_screen_offset(int col, int row) {
 	return (row * 80 + col) * 2;
 }

@@ -12,3 +12,5 @@ void print_char(char character, int col, int row, char attribute_byte);
 int get_screen_offset(int col, int row);
 int get_cursor();
 void set_cursor(int offset);
+void print_string(char string[]);
+void print_line(char string[]);
