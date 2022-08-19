@@ -29,7 +29,7 @@ void print_char(char character, int col, int row, char attribute_byte) {
 
 	offset+=2;
 
-	//offset = handle_scrolling(offset);
+	offset = handle_scrolling(offset);
 
 	set_cursor(offset);
 }
@@ -68,8 +68,27 @@ void set_cursor(int offset) {
 	offset /= 2;
 
 	port_byte_out(REG_SCREEN_CTRL, 14);
-	port_byte_out(REG_SCREEN_DATA, (unsigned char) offset >> 8);
+	port_byte_out(REG_SCREEN_DATA, (unsigned char) (offset >> 8 & 0xFF));
 	port_byte_out(REG_SCREEN_CTRL, 15);
-	port_byte_out(REG_SCREEN_DATA, offset);
+	port_byte_out(REG_SCREEN_DATA, (offset & 0xFF));
 
+}
+
+int handle_scrolling(int cursor_offset) {
+	if (cursor_offset < MAX_ROWS*MAX_COLS*2) {
+		return cursor_offset;
+	}
+
+	for (int i=1; i<MAX_ROWS; i++) {
+		memory_copy(get_screen_offset(0,i) + VIDEO_ADDRESS, get_screen_offset(0, i-1) + VIDEO_ADDRESS, MAX_COLS*2);
+	}
+
+	char* last_line = (char*) get_screen_offset(0,MAX_ROWS-1) + VIDEO_ADDRESS;
+	for (int i=0;i<MAX_COLS*2;i++) {
+		last_line[i] = 0;
+	}
+
+	cursor_offset -= 2* MAX_COLS;
+
+	return cursor_offset;
 }

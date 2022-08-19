@@ -9,13 +9,13 @@ OBJ = ${C_SOURCES:source/%.c=build/%.o}
 HEADERS = $(wildcard source/kernel/*.h source/drivers/*.h)
 
 build/kernel/kernel.bin: build/kernel/kernel_entry.o ${OBJ}
-	ld -o $@ -Ttext 0x1000 $^ --oformat binary -m elf_i386
+	i686-elf-ld -o $@ -Ttext 0x1000 $^ --oformat binary -m elf_i386
 
 build/%.o: source/%.asm
 	nasm $< -f elf32 -o $@
 
 build/%.o : source/%.c ${HEADERS}
-	gcc -ffreestanding -Wno-implicit-function-declaration -m32 -fno-pie -c $< -o $@
+	i686-elf-gcc -ffreestanding -Wno-implicit-function-declaration -m32 -fno-pie -fno-PIC -c $< -o $@
 
 build/boot/bootSector.bin: source/boot/bootSector.asm
 	nasm $< -f bin -o $@
