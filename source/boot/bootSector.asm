@@ -10,6 +10,8 @@ mov [BOOT_DRIVE], dl
 mov bp, 0x9000
 mov sp, bp
 
+mov bx, [BOOT_DRIVE]
+call print_line_rm
 mov bx, RM_MSG
 call print_line_rm
 
@@ -32,8 +34,8 @@ load_kernel :
 	call print_line_rm
 	mov bx, KERNEL_OFFSET ; Set-up parameters for our disk_load routine , so
 	mov dh, 15 ; that we load the first 15 sectors ( excluding
-	mov dl, [BOOT_DRIVE] ; the boot sector ) from the boot disk ( i.e. our
-	call disk_load ; kernel code ) to address KERNEL_OFFSET
+	mov dl, [BOOT_DRIVE] ; the boot sector ) from the boot disk ( i.e. our kernel code ) to address KERNEL_OFFSET
+	call disk_load
 ret
 
 [bits 32]

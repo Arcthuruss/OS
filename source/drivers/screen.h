@@ -14,3 +14,4 @@ int get_cursor();
 void set_cursor(int offset);
 void print_string(char string[]);
 void print_line(char string[]);
+int handle_scrolling(int cursor_offset);
