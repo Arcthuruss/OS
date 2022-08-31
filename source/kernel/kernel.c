@@ -1,8 +1,10 @@
 #include "../drivers/image.h"
+#define bool int
+#define true 1
+#define false 0
 
 int main () {
 	
-<<<<<<< HEAD
 	set_cursor(160);
 	print_line("Successfully loaded the kernel.");
 	//delay(5);
@@ -18,7 +20,7 @@ int main () {
 	//delay(5);
 	clear_screen();
 	print_line("SUS OS");
-	print_color_matrix(amongus, -1, -1);
+	print_color_matrix(amongus, 18, 13, true, -1, -1);
 
 	return 0;
 }
