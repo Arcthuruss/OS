@@ -2,6 +2,7 @@
 
 int main () {
 	
+<<<<<<< HEAD
 	set_cursor(160);
 	print_line("Successfully loaded the kernel.");
 	//delay(5);
@@ -18,5 +19,6 @@ int main () {
 	clear_screen();
 	print_line("SUS OS");
 	print_color_matrix(amongus, -1, -1);
+
 	return 0;
 }
