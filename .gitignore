@@ -2,3 +2,4 @@ test/*
 Xlaunch.lnk
 cross-compiler/*
 UEFI/UEFI_Spec_2_9_2021_03_18.pdf
+Makefile
