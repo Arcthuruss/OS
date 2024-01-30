@@ -33,13 +33,7 @@ clean:
 
 .PHONY: run
 run: all
-	qemu-system-i386 -drive format=raw,file=build/final/os-image,if=floppy
+	"/mnt/c/Program Files/qemu/qemu-system-i386.exe" -drive format=raw,file=build/final/os-image,if=floppy
 
 kernel.dis: build/kernel/kernel.bin
 	ndisasm -b 32 $< > $@
-
-os-image.iso: build/final/os-image
-	mkdir -p isodir/boot/grub
-	cp $< isodir/boot/os-image
-	cp grub.cfg isodir/boot/grub/grub.cfg
-	grub-mkrescue -o os-image.iso isodir
